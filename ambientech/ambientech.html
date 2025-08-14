@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmbienTech - El aire habla</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 50%, #2c5e5e 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .brand-text h1 {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .brand-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 25px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #2c5e5e, #1a4a4a);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 25px rgba(44, 94, 94, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .features {
+            background: white;
+            padding: 80px 0;
+            margin-top: 50px;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .features h3 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4a90e2, #2c5e5e);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(76, 144, 226, 0.3);
+        }
+
+        .feature-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .stats {
+            background: linear-gradient(45deg, #2c5e5e, #1a4a4a);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+
+        .stat-item h4 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 15px;
+            color: #4a90e2;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #4a90e2;
+        }
+
+        .team-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 80px 0;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .team-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #4a90e2, #2c5e5e);
+        }
+
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-card h5 {
+            color: #2c5e5e;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .team-card .role {
+            color: #4a90e2;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .team-card .dni {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .teachers-section {
+            background: linear-gradient(135deg, #2c5e5e 0%, #1a4a4a 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .teacher-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .teacher-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .teacher-card h5 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #4a90e2;
+        }
+
+        .teacher-card .title {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 5px;
+        }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                  <div class="logo">
+    <img src="WhatsApp Image 2025-08-14 at 08.47.39.png" alt="Logo AmbienTech" style="width: 100%; height: 100%; object-fit: contain;" />
+</div>
+
+                            <!-- Círculo exterior -->
+                            <circle cx="60" cy="60" r="57" fill="none" stroke="#2c5e5e" stroke-width="4"/>
+                            
+                            <!-- Hoja verde -->
+                            <path d="M15 25 Q8 15, 20 18 Q32 10, 28 30 Q35 42, 25 45 Q15 40, 15 25 Z" fill="#7cb342"/>
+                            
+                            <!-- Línea de señal verde -->
+                            <path d="M35 50 L45 45 L50 55 L55 45 L62 50" fill="none" stroke="#7cb342" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <!-- Circuitos/nodos azules -->
+                            <circle cx="70" cy="25" r="4" fill="#4a90e2"/>
+                            <circle cx="82" cy="35" r="4" fill="#4a90e2"/>
+                            <circle cx="75" cy="50" r="4" fill="#4a90e2"/>
+                            <circle cx="70" cy="70" r="4" fill="#4a90e2"/>
+                            
+                            <!-- Líneas de conexión -->
+                            <line x1="70" y1="25" x2="75" y2="50" stroke="#4a90e2" stroke-width="2"/>
+                            <line x1="82" y1="35" x2="75" y2="50" stroke="#4a90e2" stroke-width="2"/>
+                            <line x1="75" y1="50" x2="70" y2="70" stroke="#4a90e2" stroke-width="2"/>
+                            <line x1="75" y1="50" x2="85" y2="55" stroke="#4a90e2" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <h1>AmbienTech</h1>
+                        <p>"El aire habla"</p>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#proyecto">Proyecto</a></li>
+                        <li><a href="#tecnologia">Tecnología</a></li>
+                        <li><a href="#equipo">Equipo</a></li>
+                        <li><a href="#impacto">Impacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h2>Sistema de Monitoreo Ambiental</h2>
+            <p>Desarrollamos tecnología accesible para medir la calidad del aire, temperatura, humedad y contaminación sonora en tiempo real, promoviendo espacios más saludables para nuestra comunidad.</p>
+            <a href="#proyecto" class="cta-button">Conoce el Proyecto</a>
+        </div>
+    </section>
+
+    <section class="features" id="proyecto">
+        <div class="container">
+            <h3>¿Qué Monitoreamos?</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌬️</div>
+                    <h4>Calidad del Aire</h4>
+                    <p>Sensores MQ-135 y MQ-7 para detectar gases contaminantes como monóxido de carbono y otros compuestos nocivos en el ambiente.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h4>Temperatura y Humedad</h4>
+                    <p>Sensor DHT11 que monitorea las condiciones ideales para espacios interiores, manteniendo rangos saludables de 21-25°C y 40-60% de humedad.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔊</div>
+                    <h4>Contaminación Sonora</h4>
+                    <p>Sensor KY-037 para medir niveles de ruido y prevenir la contaminación acústica en espacios comunitarios y educativos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" id="tecnologia">
+        <div class="container">
+            <h3 style="margin-bottom: 40px;">Tecnología Implementada</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h4>ESP32</h4>
+                    <p>Microcontrolador con WiFi</p>
+                </div>
+                <div class="stat-item">
+                    <h4>5</h4>
+                    <p>Sensores Integrados</p>
+                </div>
+                <div class="stat-item">
+                    <h4>24/7</h4>
+                    <p>Monitoreo Continuo</p>
+                </div>
+                <div class="stat-item">
+                    <h4>3D</h4>
+                    <p>Carcasa Impresa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section" id="equipo">
+        <div class="container">
+            <h3 style="text-align: center; margin-bottom: 50px; color: #2c5e5e;">Equipo de Desarrollo</h3>
+            <div class="team-grid">
+                <div class="team-card">
+                    <h5>Candela Sol  López Cirimele</h5>
+                    <div class="dni">DNI: 48.242.506</div>
+                </div>
+                <div class="team-card">
+                    <h5>Fernan Bello</h5>
+                    <div class="dni">DNI: 48.382.695</div>
+                </div>
+                <div class="team-card">
+                    <h5>Jeremías Uriel Alderete Cabrera</h5>
+                    <div class="dni">DNI: 48.424.555</div>
+                </div>
+                <div class="team-card">
+                    <h5>Mateo Felipe Reyes</h5>
+                    <div class="dni">DNI: 48.232.159</div>
+                </div>
+                <div class="team-card">
+                    <h5>Lujan Vera Cabaña</h5>
+                    <div class="dni">DNI: 48.999.111</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="teachers-section">
+        <div class="container">
+            <h3 style="margin-bottom: 50px;">Docentes Asesores</h3>
+            <div class="teachers-grid">
+                <div class="teacher-card">
+                    <div class="teacher-icon">👨‍🏫</div>
+                    <h5>Lic. Flavio Martín Peyrot</h5>
+                    <div class="title">Docente Asesor</div>
+                    <div class="dni" style="color: rgba(255, 255, 255, 0.7);">DNI: 23.687.192</div>
+                </div>
+                <div class="teacher-card">
+                    <div class="teacher-icon">👩‍🏫</div>
+                    <h5>Lic. Paola Vanesa Toledo</h5>
+                    <div class="title">Docente Asesora</div>
+                    <div class="dni" style="color: rgba(255, 255, 255, 0.7);">DNI: 29.695.779</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="impacto">
+        <div class="container">
+            <h3>Impacto Social</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏫</div>
+                    <h4>Espacios Educativos</h4>
+                    <p>Instalación en escuelas para garantizar ambientes saludables de aprendizaje y concientizar a estudiantes sobre la importancia del cuidado ambiental.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h4>Participación Comunitaria</h4>
+                    <p>Involucramos a vecinos y organizaciones locales en el mantenimiento y monitoreo, fortaleciendo el compromiso con el entorno.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Datos Transparentes</h4>
+                    <p>Información accesible mediante displays OLED y plataformas web para facilitar la toma de decisiones basada en datos reales.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Instituto Santa Ana</h4>
+                    <p>Modalidad: Técnico Personal y Profesional en Informática</p>
+                    <p>Nivel: Secundario - Área: Tecnología</p>
+                    <p>Comodoro Rivadavia 1385, General Pacheco, Tigre</p>
+                    <p>Provincia de Buenos Aires</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Feria Regional 2025</h4>
+                    <p>Feria Regional de Educación, Arte, Ciencias y Tecnología</p>
+                    <p>Fecha de Inscripción: 12/06/2025</p>
+                    <p>Año en Curso: 2025</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Acerca del Proyecto</h4>
+                    <p>Sistema de monitoreo ambiental desarrollado por estudiantes de 6°B</p>
+                    <p>Enfocado en la medición de calidad del aire, temperatura, humedad y contaminación sonora</p>
+                </div>
+            </div>
+            <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #555;">
+                © 2025 AmbienTech - "El aire habla" - Sistema de Monitoreo Ambiental | Instituto Santa Ana
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling para los enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Efecto de aparición al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar el observer a las tarjetas
+        document.querySelectorAll('.feature-card, .team-card, .teacher-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
